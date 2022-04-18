@@ -57,7 +57,7 @@ for n_lstm in (32,64,128):
             model = build_model(n_lstm, n_layer, n_neuron, activation)
             # 训练模型
             history.append((n_lstm, n_layer, n_neuron, model.fit(train_data, epochs=epochs).history['mse'][-1]))
-            # 使用最后100天的数据预测未来5天
+            # 使用最后21天的数据预测未来5天
             predict = model.predict(np.array([[data[-21:]]]))
             # 绘制图形
             x = pd.read_csv('BABA3.17.csv')['Date'].values[-21:]
