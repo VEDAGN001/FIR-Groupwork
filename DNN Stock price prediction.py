@@ -18,7 +18,7 @@ class Generator(Sequence, ABC):
         self.num_predict = num_predict
         self.len = len(data_) - num_train - num_predict + 1
 
-    def __getitem__(self, bach_index): 
+    def __getitem__(self, bach_index):
         t = bach_index + self.num_train
         data_x = self.data[bach_index: t]
         data_y = self.data[t: t + self.num_predict]
@@ -36,7 +36,7 @@ def build_model(n_lstm_, n_layer_, n_neuron_, activation_):
         x = layers.Dense(n_neuron_, activation_)(x)
     outputs = [layers.Dense(predict_days)(x)]
     model_ = Model(inputs, outputs)
-    model_.compile(optimizers.Adam(5e-5), 'mse', ['mse'])
+    model_.compile(optimizers.Adam(1e-6), 'mse', ['mse'])
     print(model_.summary())
     return model_
 
@@ -49,13 +49,14 @@ test_data = Generator(data[len(data) * 9 // 10:], input_days, predict_days)
 # 模型参数
 activation = 'relu'
 epochs = 80
-for n_lstm in (32,64,128 ):
-    for n_layer in (3, 6, 9):
-        for n_neuron in (10, 25, 50):
+history = []
+for n_lstm in (32,64,128,256 ):
+    for n_layer in (3,6,9,20 ):
+        for n_neuron in (10,20,50,100 ):
             # 构建模型
             model = build_model(n_lstm, n_layer, n_neuron, activation)
             # 训练模型
-            model.fit(train_data, epochs=epochs)
+            history.append((n_lstm, n_layer, n_neuron, model.fit(train_data, epochs=epochs).history['mse'][-1]))
             # 使用最后100天的数据预测未来5天
             predict = model.predict(np.array([[data[-21:]]]))
             # 绘制图形
