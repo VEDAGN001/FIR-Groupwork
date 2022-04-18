@@ -198,6 +198,21 @@ tweets_df.head()
 ![Vader 2.png](https://s2.loli.net/2022/04/17/pULOJH7A5zDo3CW.png)
 
 ## Deep learning model
+**TensorFlow**, developed by the Google Brain team, is a free open-source software library for machine learning and AI. It can automatically calculate the gradients of the parameters in the model and is easy to optimise for deep learning with the Adam optimiser. Adam can iteratively update the neural network weights based on the training data, making it very simple and efficient. This makes TensorFlow ideal for the training and inference of deep neural networks. For example, AlphaGo was trained using TensorFlow, which is named after how it works: tensor means tensor (i.e. a multidimensional array) and flow means a stream. Therefore, TensorFlow means that the multidimensional arrays flow from one end of the data flow graph to the other. The diagram below illustrates the flow of data.
+
+![textblob.gif](https://tva1.sinaimg.cn/large/e6c9d24egy1h1c8w4bmang20700cgdpd.gif)
+
+**Keras** is a deep learning library based on TensorFlow and Theano (a machine learning framework developed by the University of Montreal, Canada). It is a high-level neural network API written in python and only supports python development.
+
+Keras can run with [TensorFlow](https://github.com/tensorflow/tensorflow),  [CNTK](https://github.com/Microsoft/cntk) or [Theano](https://github.com/Theano/Theano) as the backend. Keras is designed to support fast experiments, being able to translate your ideas into experimental results with minimal latency.
+
+Use Keras if you need a deep learning library in the following situations:
+
+- Allows simple and fast prototyping (due to user-friendliness, high modularity, scalability).
+- Supports both convolutional and recurrent neural networks, as well as combinations of both.
+- Runs seamlessly on CPUs and GPUs.
+
+This report uses the **Keras API** operating with Tensorflow as the backend: **Tensorflow.keras**
 ```python
 import numpy as np
 import pandas as pd
